@@ -59,22 +59,18 @@ def create_battlecard_pdf(competitor, content, output_dir, template_name='classi
     pdf_path = os.path.join(output_dir, f"{competitor}_battlecard.pdf")
     doc = SimpleDocTemplate(pdf_path, pagesize=A4)
     
-    # Define styles
     styles = getSampleStyleSheet()
     
-    # Title Style with Premium Highlight
     title_style = ParagraphStyle(
         name='TitleStyle', fontName=template['font'], fontSize=24, textColor=template['highlight_color'], alignment=TA_CENTER, spaceAfter=20,
         leading=30
     )
     
-    # Section Header Style with Underline instead of Box
     section_style = ParagraphStyle(
         name='SectionStyle', fontName=template['font'], fontSize=16, textColor=template['section_text_color'], alignment=TA_LEFT, spaceAfter=10, spaceBefore=10,
         underline=True, underlineColor=template['section_text_color'], leading=20
     )
     
-    # Body Text Style
     body_style = ParagraphStyle(
         name='BodyStyle', fontName='Helvetica', fontSize=12, textColor=template['text_color'], spaceAfter=8, alignment=TA_JUSTIFY, leading=14,
     )
@@ -119,7 +115,7 @@ def create_battlecard_pdf(competitor, content, output_dir, template_name='classi
             # Handle actual bullet points with bold subheadings
             bullet_items = []
             for line in body_lines:
-                if ":" in line:  # Look for subheading (e.g., "Market Share:")
+                if ":" in line: 
                     subheading, description = line.split(":", 1)
                     bullet_items.append(ListItem(Paragraph(f"<b>{subheading}:</b> {description.strip()}", bullet_style)))
                 else:
@@ -141,7 +137,6 @@ def create_battlecard_pdf(competitor, content, output_dir, template_name='classi
     # Build the PDF
     doc.build(elements)
 
-# Function to save content as a .txt file
 def save_battlecard_txt(competitor, content, output_dir):
     txt_output_path = os.path.join(output_dir, f"{competitor}_battlecard.txt")
     try:
@@ -155,7 +150,6 @@ def design_battlecards(template_name='classic'):
     output_dir = 'battlecards'
     os.makedirs(output_dir, exist_ok=True)
 
-    # Load battlecards data
     try:
         with open('battlecards.json', 'r', encoding='utf-8') as file:
             global battlecards_data
@@ -164,7 +158,6 @@ def design_battlecards(template_name='classic'):
         print(f"Error loading battlecards data: {e}")
         return
     
-    # Process each competitor and create PDFs and text files
     for competitor in battlecards_data:
         content = fetch_battlecard_content(competitor)
         create_battlecard_pdf(competitor, content, output_dir, template_name=template_name)
