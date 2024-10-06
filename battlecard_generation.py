@@ -68,17 +68,15 @@ def generate_battlecard(competitor_name, competitor_profile, products, api_key):
         print(f"Error generating battlecard for {competitor_name}: {e}")
         return None
 
-# Wrapper function to generate multiple battlecards
 def generate_battlecards():
-    # Load API keys and competitor profiles
     api_keys = load_api_keys('data/api_keys.json')
     competitor_profiles = load_competitor_profiles('competitor_profiles.json')
 
-    print("Competitor Profiles:", competitor_profiles)  # Debugging line
+    print("Competitor Profiles:", competitor_profiles)  
 
     battlecards = {}
     for competitor, profile in competitor_profiles.items():
-        print(f"Processing {competitor}")  # Debugging line
+        print(f"Processing {competitor}")  
 
         products = profile.get('products', [])
         if not products:
