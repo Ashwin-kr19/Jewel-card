@@ -7,7 +7,6 @@ from battlecard_generation import generate_battlecards
 from battlecard_design import design_battlecards, TEMPLATES
 from chat import ask_question_to_groq
 
-# Function to add custom CSS (keeping this as per your request)
 def add_custom_css():
     st.markdown(
         """
@@ -154,7 +153,7 @@ def show_chatbot_page():
     for chat in st.session_state.chat_history:
         st.write(f"**You:** {chat['user']}")
         st.write(f"**Bot:** {chat['bot']}")
-        st.write("<hr>", unsafe_allow_html=True)  # HTML for a horizontal line between chats
+        st.write("<hr>", unsafe_allow_html=True)  
 
     # Function to clear input after submission
     def submit_question():
@@ -168,10 +167,8 @@ def show_chatbot_page():
             # Clear the input question field after asking
             st.session_state.input_question = ""
 
-    # Input and submission
     st.text_input("Ask a question about the battlecards:", key="input_question", on_change=submit_question)
 
-# Streamlit page selection
 def main():
     add_custom_css()  
     st.sidebar.title("Navigation")
